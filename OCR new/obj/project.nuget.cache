@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "GL9k81i9M63d+CFIIALFB4XRIweutIEY8uyteD8hkK5nUcxRQ4VmINwoE3Nr94wIPiIr10VC259c/o1bOdDxSA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\raimu\\source\\repos\\OCR new\\OCR new\\OCR new.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\raimu\\.nuget\\packages\\skiasharp\\2.88.6\\skiasharp.2.88.6.nupkg.sha512",
+    "C:\\Users\\raimu\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.6\\skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
+    "C:\\Users\\raimu\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.6\\skiasharp.nativeassets.win32.2.88.6.nupkg.sha512"
+  ],
+  "logs": []
+}
