@@ -20,3 +20,7 @@ C:\Users\raimu\source\repos\OCR new\OCR new\obj\Debug\net6.0\refint\OCR new.dll
 C:\Users\raimu\source\repos\OCR new\OCR new\obj\Debug\net6.0\OCR new.pdb
 C:\Users\raimu\source\repos\OCR new\OCR new\obj\Debug\net6.0\OCR new.genruntimeconfig.cache
 C:\Users\raimu\source\repos\OCR new\OCR new\obj\Debug\net6.0\ref\OCR new.dll
+C:\Users\raimu\source\repos\OCR new\OCR new\bin\Debug\net6.0\aiwplain1.jpg
+C:\Users\raimu\source\repos\OCR new\OCR new\bin\Debug\net6.0\2f9hR.jpg
+C:\Users\raimu\source\repos\OCR new\OCR new\bin\Debug\net6.0\RQIGI.jpg
+C:\Users\raimu\source\repos\OCR new\OCR new\bin\Debug\net6.0\ocrtest1.jpg
