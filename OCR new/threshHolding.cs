@@ -1,5 +1,6 @@
 ﻿using SkiaSharp;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,53 @@ using System.Threading.Tasks;
 
 public class thresholding
 {
+    public SKBitmap SharpenImage(SKBitmap original, float amount)
+    {
+        SKBitmap sharpenedBitmap = new SKBitmap(original.Width, original.Height, SKColorType.Bgra8888, SKAlphaType.Premul);
+
+        using (var canvas = new SKCanvas(sharpenedBitmap))
+        {
+            canvas.Clear(SKColors.White);
+
+            for (int y = 1; y < original.Height - 1; y++)
+            {
+                for (int x = 1; x < original.Width - 1; x++)
+                {
+                    SKColor originalColor = original.GetPixel(x, y);
+                    float edgeDetection = (
+                        GetIntensity(original.GetPixel(x - 1, y - 1)) +
+                        GetIntensity(original.GetPixel(x, y - 1)) +
+                        GetIntensity(original.GetPixel(x + 1, y - 1)) +
+                        GetIntensity(original.GetPixel(x - 1, y)) - 8 * GetIntensity(originalColor) +
+                        GetIntensity(original.GetPixel(x + 1, y)) +
+                        GetIntensity(original.GetPixel(x - 1, y + 1)) +
+                        GetIntensity(original.GetPixel(x, y + 1)) +
+                        GetIntensity(original.GetPixel(x + 1, y + 1))
+                    ) * amount;
+
+                    int r = ClampColor(originalColor.Red + (int)edgeDetection);
+                    int g = ClampColor(originalColor.Green + (int)edgeDetection);
+                    int b = ClampColor(originalColor.Blue + (int)edgeDetection);
+
+                    SKColor newColor = new SKColor((byte)r, (byte)g, (byte)b);
+                    sharpenedBitmap.SetPixel(x, y, newColor);
+                }
+            }
+        }
+
+        return sharpenedBitmap;
+    }
+
+    private static float GetIntensity(SKColor color)
+    {
+        return 0.299f * color.Red + 0.587f * color.Green + 0.114f * color.Blue;
+    }
+
+    private static int ClampColor(int value)
+    {
+        return Math.Max(0, Math.Min(255, value));
+    }
+
     public SKBitmap SobelEdgeDetection(SKBitmap inputBitmap)
     {
         int width = inputBitmap.Width;
@@ -81,7 +129,9 @@ public class thresholding
         int[,] integralImage = BuildIntegralImage(original);
 
         int halfBlockSize = blockSize / 2;
-        for (int y = 0; y < height; y++)
+
+        // Using parallel for loop for y-axis
+        Parallel.For(0, height, y =>
         {
             for (int x = 0; x < width; x++)
             {
@@ -98,9 +148,13 @@ public class thresholding
                 byte localMean = (byte)(sum / area);
 
                 SKColor newColor = intensity <= (localMean - c) ? SKColors.Black : SKColors.White;
-                thresholded.SetPixel(x, y, newColor);
+
+                lock (thresholded)
+                {
+                    thresholded.SetPixel(x, y, newColor);
+                }
             }
-        }
+        });
 
         return thresholded;
     }

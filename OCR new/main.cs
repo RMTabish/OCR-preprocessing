@@ -11,7 +11,7 @@ class Program
     static void Main(string[] args)
     {
         // Load an image
-        string imagePath = "ocrtest1.jpg";
+        string imagePath = "sabset.jpg";
         SKBitmap inputBitmap = LoadImage(imagePath);
 
         if (inputBitmap == null)
@@ -27,30 +27,32 @@ class Program
         // Resize the image if necessary - this can help with OCR accuracy if the text is too small
 
 
-     //  SKBitmap resizedImage =thresh.Resize(inputBitmap, 1.5f, 1.5f);
+       SKBitmap resizedImage =thresh.Resize(inputBitmap, 0.6f, 0.6f);
 
       
         // Convert to grayscale - OCR works better on grayscale images
-        SKBitmap grayscaleImage = thresh.ConvertToGrayscale(inputBitmap);
+  //      SKBitmap grayscaleImage = thresh.ConvertToGrayscale(inputBitmap);
 
 
        
         // Applying a median blur can help reduce noise while preserving edges
-        SKBitmap medianBlurred = blur.BilateralBlur(grayscaleImage, 1,15,15);
+       SKBitmap medianBlurred = blur.GaussianBlur(resizedImage, 1.2f);
 
+    
+     //   SKBitmap sharpenedImage = thresh.SharpenImage(medianBlurred,  1f);
 
-        SKBitmap contrastEnhancedImage = thresh.EnhanceContrast(medianBlurred, 1.2f);
+    //   SKBitmap contrastEnhancedImage = thresh.EnhanceContrast(medianBlurred, 1.2f);
 
-        //SKBitmap edgeDetectedImage = thresh.SobelEdgeDetection(medianBlurred);
+   //     SKBitmap edgeDetectedImage = thresh.SobelEdgeDetection(medianBlurred);
 
 
         // Apply adaptive thresholding to create a clear, binary image
-        SKBitmap thresholdedImage = thresh.AdaptiveThreshold(contrastEnhancedImage, blockSize: 51, c: 15);
+        SKBitmap thresholdedImage = thresh.AdaptiveThreshold(medianBlurred, blockSize: 51, c: 15);
 
         // Apply erosion to thin out the text
-        SKBitmap erodedImage = thresh.Erode(thresholdedImage, 1);
+    //    SKBitmap erodedImage = thresh.Erode(thresholdedImage, 1);
         // Save the final image
-        SaveImage(erodedImage, "newKam2.jpg");
+        SaveImage(thresholdedImage, "finalPlz.jpg");
 
         Console.WriteLine("All operations completed.");
         Console.WriteLine("All operations completed.");
