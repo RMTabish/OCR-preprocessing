@@ -24,39 +24,33 @@ class Program
         thresholding thresh = new thresholding();
 
         // Start preprocessing steps
-        // Resize the image if necessary - this can help with OCR accuracy if the text is too small
+        // Resize the image 
+  
+        SKBitmap resizedImage =thresh.Resize(inputBitmap, 0.5f, 0.5f);
 
-
-       SKBitmap resizedImage =thresh.Resize(inputBitmap, 0.6f, 0.6f);
-
-      
-        // Convert to grayscale - OCR works better on grayscale images
-  //      SKBitmap grayscaleImage = thresh.ConvertToGrayscale(inputBitmap);
-
-
-       
-        // Applying a median blur can help reduce noise while preserving edges
+   
+       // Applying a guassian blur can help reduce noise while preserving edges
        SKBitmap medianBlurred = blur.GaussianBlur(resizedImage, 1.2f);
 
     
-     //   SKBitmap sharpenedImage = thresh.SharpenImage(medianBlurred,  1f);
 
-    //   SKBitmap contrastEnhancedImage = thresh.EnhanceContrast(medianBlurred, 1.2f);
+      //below steps for complex processing when image is too unclear
 
-   //     SKBitmap edgeDetectedImage = thresh.SobelEdgeDetection(medianBlurred);
+      // SKBitmap sharpenedImage = thresh.SharpenImage(medianBlurred,  1f);
+      //SKBitmap contrastEnhancedImage = thresh.EnhanceContrast(medianBlurred, 1.2f);
+      //SKBitmap edgeDetectedImage = thresh.SobelEdgeDetection(medianBlurred);
 
 
-        // Apply adaptive thresholding to create a clear, binary image
-        SKBitmap thresholdedImage = thresh.AdaptiveThreshold(medianBlurred, blockSize: 51, c: 15);
+      // Apply adaptive thresholding to create a clear, binary image
+       SKBitmap thresholdedImage = thresh.AdaptiveThreshold(medianBlurred, blockSize: 51, c: 5);
 
-        // Apply erosion to thin out the text
-    //    SKBitmap erodedImage = thresh.Erode(thresholdedImage, 1);
-        // Save the final image
-        SaveImage(thresholdedImage, "finalPlz.jpg");
+      // Apply erosion to thin out the text if there feels a need
+      // SKBitmap erodedImage = thresh.Erode(thresholdedImage, 1);
+     // Save the final image
+        SaveImage(thresholdedImage, "PreProcessed.jpg");
 
         Console.WriteLine("All operations completed.");
-        Console.WriteLine("All operations completed.");
-
+      
         static SKBitmap LoadImage(string path)
         {
             if (!System.IO.File.Exists(path))

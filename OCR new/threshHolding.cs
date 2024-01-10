@@ -130,7 +130,7 @@ public class thresholding
 
         int halfBlockSize = blockSize / 2;
 
-        // Using parallel for loop for y-axis
+        // Using parallel for loop for y-axis, kinf of utilized multithreading
         Parallel.For(0, height, y =>
         {
             for (int x = 0; x < width; x++)

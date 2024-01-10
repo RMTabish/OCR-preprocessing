@@ -13,21 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="2f9hR.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="aiwplain1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ocrtest1.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ocrtest2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="RQIGI.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="sabset.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
