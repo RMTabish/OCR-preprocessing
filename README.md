@@ -27,7 +27,7 @@ This C# project is developed in Visual Studio and utilizes the SkiaSharp library
 
 1. Place the image to be processed in an accessible directory.
 2. Modify the `imagePath` variable in the `Main` method to the path of your image.
-3. Run the program. Processed images will be saved in the specified path.
+3. Run the program. Processed images will be saved at 'OCR_new\bin\Debug\net6.0'.
 
 ### Code Example
 
